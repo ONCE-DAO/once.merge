@@ -37,6 +37,43 @@ export class ServerSideNpmPackage extends NpmPackage {
     return process.cwd() + '/src';
   }
 
+
+  static async discover(): Promise<ServerSideNpmPackage[]> {
+    let result: ServerSideNpmPackage[] = [];
+
+    // TODO: Sollte ein zentrales EAMD.ucp Root dir geben
+    let dir = process.cwd().replace(/\/EAMD.ucp\/.*/, '/EAMD.ucp/') + '/Components/';
+
+    let thisProxy = this;
+
+    function walkDir(currentPath: string) {
+      let files = fs.readdirSync(currentPath);
+      if (files.includes('package.json')) {
+        let packageObject = thisProxy.getByPath(path.join(currentPath, 'package.json'));
+        if (packageObject) {
+          result.push(packageObject)
+        }
+      }
+      for (let file of files) {
+        let curFile = path.join(currentPath, file);
+        if (fs.statSync(curFile).isDirectory() && !file.endsWith('node_modules') && !file.startsWith('.')) {
+          walkDir(curFile);
+        }
+      }
+    };
+
+    walkDir(dir);
+
+
+    return result;
+  }
+
+  static async getNpmPackage(packageString: string, name: string): Promise<NpmPackage | undefined> {
+    let list = await this.discover();
+    let resultList = list.filter(p => p.name === name && p.package === packageString)
+    return resultList[0];
+  }
+
   discoverFiles(fileTypes: string[]): string[] {
 
     if (!this.path) throw new Error("Missing path")

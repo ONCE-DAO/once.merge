@@ -8,6 +8,7 @@ export class NpmPackage {
   linkPackage?: boolean;
 
 
+  package?: string;
 
 
   static getByPackage(path: string, name: string, version: string): NpmPackage {
