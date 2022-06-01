@@ -1,13 +1,15 @@
 {
   "name": "once.merge",
   "package": "tla.EAM.Once",
-  "onceDependencies": [],
+  "onceDependencies": [
+    "thinglish.transformer"
+  ],
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest  --detectOpenHandles"
   },
   "author": "",
   "license": "AGPL-3.0",
@@ -23,7 +25,7 @@
     "jest": "^28.1.0",
     "ts-jest": "^28.0.2",
     "ts-node": "^10.7.0",
-    "typescript": "^4.7.1-rc"
+    "typescript": "4.7.2"
   },
   "dependencies": {
     "chokidar": "^3.5.3",

@@ -1,4 +1,4 @@
-import ExtendedPromise from "../../../src/2_systems/JSExtensions/Promise";
+import ExtendedPromise from "../../../src/2_systems/JSExtensions/Promise.class.mjs";
 import DefaultFunctionPromiseQueue from "../../../src/2_systems/Things/DefaultFunctionPromiseQueue.class.mjs";
 
 

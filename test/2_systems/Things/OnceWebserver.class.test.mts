@@ -87,28 +87,28 @@ describe("Once WebServer", () => {
 
     })
 
-    test("test ONCE.ts index.html", async () => {
+    // test("test ONCE.ts index.html", async () => {
 
-        server = new OnceWebserver();
+    //     server = new OnceWebserver();
 
-        await server.start();
-        expect(server.status).toBe("running");
-
-
-        let url = server.internalUrl;
-        url.pathName = "/EAMD.ucp/tla/EAM/once.ts";
-        let href = url.href
-        let result = await fetch(href);
-        let text = await result.text();
-
-        //await ExtendedPromise.wait(1000000)
-
-        expect(result.ok).toBe(true);
+    //     await server.start();
+    //     expect(server.status).toBe("running");
 
 
-        await server.stop();
-        expect(server.status).toBe("stopped");
+    //     let url = server.internalUrl;
+    //     url.pathName = "/EAMD.ucp/tla/EAM/once.ts";
+    //     let href = url.href
+    //     let result = await fetch(href);
+    //     let text = await result.text();
+
+    //     //await ExtendedPromise.wait(1000000)
+
+    //     expect(result.ok).toBe(true);
 
 
-    }, 1000000)
+    //     await server.stop();
+    //     expect(server.status).toBe("stopped");
+
+
+    // }, 1000000)
 })

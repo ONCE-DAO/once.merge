@@ -6,6 +6,7 @@ import IOR from "../../3_services/IOR.interface.mjs";
 import { UDEObject } from "../../3_services/PersistanceManager.interface.mjs";
 import UDELoader from "./UDELoader.class.mjs";
 import OnceNodeServer from "../Once/OnceNodeServer.class.mjs";
+import path from "path";
 
 export class FilePersistanceManager extends BasePersistanceManager {
 
@@ -90,7 +91,8 @@ export class FilePersistanceManager extends BasePersistanceManager {
         if (ior.pathName === undefined) throw new Error("Missing PathName in ior");
 
         let dir = await FilePersistanceManager.getUdeDirectory();
-        dir += ior.pathName.replace('/' + ior.id, '');
+        dir = path.join(dir, ior.pathName.replace('/' + ior.id, ''));
+        if (!fs.existsSync(dir)) return {};
         const files = fs.readdirSync(dir);
         const fullAliasList: { [index: string]: string } = {};
         for (const file of files) {

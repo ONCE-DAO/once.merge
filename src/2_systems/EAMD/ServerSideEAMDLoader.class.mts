@@ -26,10 +26,15 @@ class EAMDLoader extends BaseLoader implements Loader {
     if (this.canHandle(ior) !== 1 || !ior.namespace) throw new Error("Can not load this IOR");
 
     let modulePath: string;
+
+
+    // HACK: Need to discover That!
     if (ior.namespace === 'tla.EAM.Once') {
-      modulePath = path.resolve("./src");
+      modulePath = path.resolve("./Components/tla/EAM/Once/dist/once.merge/main");
     } else if (ior.namespace === 'tla.EAM.once.ts') {
-      modulePath = path.resolve("./src");
+      modulePath = path.resolve("./Components/tla/EAM/Once/dist/once.merge/main");
+    } else if (ior.namespace === 'tla.EAM.Once.once.merge') {
+      modulePath = path.resolve("./Components/tla/EAM/Once/dist/once.merge/main");
     } else {
 
       if (typeof ONCE === "undefined") throw new Error("Missing ONCE");
@@ -40,7 +45,7 @@ class EAMDLoader extends BaseLoader implements Loader {
       //@ts-ignore
       const repoPath = eamdRepos[ior.namespace];
       if (repoPath === undefined) {
-        throw new Error("Missing Mapping from Namespace to Repository")
+        throw new Error("Missing Mapping from Namespace to Repository: " + ior.namespace)
       }
 
       if (!ONCE.eamd.eamdRepository) throw new Error("Missing eamdRepository");

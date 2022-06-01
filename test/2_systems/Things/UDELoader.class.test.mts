@@ -132,6 +132,8 @@ describe("UDE Loader", () => {
 
             let result = await client.retrieve(onceConfigIOR);
 
+            expect(result.ok).toBe(true);
+
             expect(result.parsedData.alias).toStrictEqual(["onceConfig"]);
 
         })
@@ -147,7 +149,7 @@ describe("UDE Loader", () => {
                 "typeIOR": "ior:esm:git:/tla.EAM.once.ts[0.0.1]/DefaultOnceConfig",
                 "particle": {
                     "data": {
-                        "_component": { "name": "DefaultOnceConfig_Loaded!!!!" },
+                        "_component": { "name": "DefaultOnceConfig" },
                         "hostname": "someHost",
                         "port": 8443,
                         "protocol": "https"

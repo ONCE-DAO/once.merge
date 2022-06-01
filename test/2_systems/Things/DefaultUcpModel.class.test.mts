@@ -1,4 +1,4 @@
-import ExtendedPromise from "../../../src/2_systems/JSExtensions/Promise";
+import ExtendedPromise from "../../../src/2_systems/JSExtensions/Promise.class.mjs";
 import UUiD from "../../../src/2_systems/JSExtensions/UUiD.class.mjs";
 import DefaultIOR from "../../../src/2_systems/Things/DefaultIOR.class.mjs";
 import SomeExampleUcpComponent from "../../../src/2_systems/Things/SomeExampleUcpComponent.class.mjs";

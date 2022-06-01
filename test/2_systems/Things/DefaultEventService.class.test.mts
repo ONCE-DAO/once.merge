@@ -1,4 +1,4 @@
-import extendedPromise from "../../../src/2_systems/JSExtensions/Promise";
+import extendedPromise from "../../../src/2_systems/JSExtensions/Promise.class.mjs";
 import DefaultEvent from "../../../src/2_systems/Things/DefaultEvent.class.mjs";
 import DefaultEventService from "../../../src/2_systems/Things/DefaultEventService.class.mjs";
 import DefaultIOR from "../../../src/2_systems/Things/DefaultIOR.class.mjs";

@@ -19,7 +19,7 @@ describe("EAMD Loader", () => {
   test(`IOR load Thing from Namespace`, async () => {
     let loadedDefaultIOR = (await DefaultIOR.load("ior:esm:git:tla.EAM.Once"))
       .DefaultIOR;
-    expect(loadedDefaultIOR).toEqual(DefaultIOR);
+    expect(loadedDefaultIOR.classDescriptor.name).toEqual(DefaultIOR.classDescriptor.name);
   });
 
   test(`CanHandler`, async () => {

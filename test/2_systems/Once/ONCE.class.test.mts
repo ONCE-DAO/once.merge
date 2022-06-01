@@ -20,6 +20,6 @@ describe("ONCE", () => {
     test("Once Config", async () => {
         if (!ONCE) throw new Error("Missing ONCE");
         let config = await ONCE.getConfig();
-        expect(config).toBeInstanceOf(DefaultOnceConfig);
+        expect(config.classDescriptor.name).toBe("DefaultOnceConfig");
     });
 });
