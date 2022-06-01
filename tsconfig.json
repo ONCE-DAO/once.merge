@@ -1,0 +1,20 @@
+{
+  "extends": "./../../../../../../tsconfig",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "../../dist/once.merge/main",
+    "plugins": [
+      {
+        "transform": "./../../../Thinglish/dist/thinglish.transformer/merge/3_services/transformer.cjs"
+      }
+    ]
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "test",
+    "**/test/**/*",
+    "node_modules"
+  ]
+}
