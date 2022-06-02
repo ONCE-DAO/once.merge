@@ -1,15 +1,15 @@
-import { readFileSync, writeFileSync } from "fs";
-import { join } from "path";
 import { ThingStatics } from "../3_services/Thing.interface.mjs";
-import { ClassDescriptorInterface, InterfaceDescriptorInterface } from "./Things/DefaultClassDescriptor.class.mjs";
 
 import fs from 'fs';
 import path from 'path';
 import DefaultUcpComponentDescriptor, { UcpComponentDescriptorInitParameters } from "./DefaultUcpComponentDescriptor.class.mjs";
 import { ServerSideNpmPackage } from "./ServerSideNpmPackage.class.mjs";
+import UcpComponentDescriptorInterface, { UcpComponentDescriptorDataStructure } from "../3_services/UcpComponentDescriptor.interface.mjs";
+import InterfaceDescriptorInterface from "../3_services/InterfaceDescriptor.interface.mjs";
+import ClassDescriptorInterface from "../3_services/ClassDescriptor.interface.mjs";
 
 
-export default class ServerSideUcpComponentDescriptor extends DefaultUcpComponentDescriptor {
+export default class ServerSideUcpComponentDescriptor extends DefaultUcpComponentDescriptor implements UcpComponentDescriptorInterface {
 
   exportFile: string = "index.ts";
 
@@ -36,7 +36,23 @@ export default class ServerSideUcpComponentDescriptor extends DefaultUcpComponen
     return this;
   }
 
-  writeToPath(path: string, version: string) {
+  writeToDistPath() {
+    const outDir = this.npmPackage.tsConfig?.compilerOptions?.outDir;
+    if (!outDir) throw new Error("Missing outDir in tsconfig.json");
+    this.writeToPath(outDir);
+  }
+
+  get descriptorFileName() { return 'ComponentDescriptor.json' }
+
+  writeToPath(writePath: string) {
+
+    let outputData: UcpComponentDescriptorDataStructure = {
+      name: this.name,
+      version: this.version,
+      package: this.package
+    }
+
+    fs.writeFileSync(path.join(writePath, this.descriptorFileName), JSON.stringify(outputData));
     // const descriptor = create();
     // descriptor.ele("", "foo").txt("vbhjk").up();
     // // Object.keys(this).forEach((key, i) => {
@@ -71,7 +87,7 @@ export default class ServerSideUcpComponentDescriptor extends DefaultUcpComponen
         throw new Error(`File '${fileName}' doesn't exist`);
       }
 
-      fileData = readFileSync(fileName).toString();
+      fileData = fs.readFileSync(fileName).toString();
     }
 
     let regex = new RegExp(`export (default)? ?(interface )?({[^}*])?${interfaceName}`, "m");
@@ -98,7 +114,7 @@ export default class ServerSideUcpComponentDescriptor extends DefaultUcpComponen
 
     const defaultFile = baseDirectory + "/index.default.ts";
     if (fs.existsSync(defaultFile)) {
-      let defaultData = readFileSync(defaultFile).toString();
+      let defaultData = fs.readFileSync(defaultFile).toString();
       fs.writeSync(fd, "// ########## Default Export ##########\n");
       fs.writeSync(fd, defaultData);
       fs.writeSync(fd, "\n// ########## Default Export END ##########\n\n");
@@ -172,8 +188,8 @@ export default class ServerSideUcpComponentDescriptor extends DefaultUcpComponen
 
   }
 
-  static readFromFile(path: string): DefaultUcpComponentDescriptor {
-    return JSON.parse(readFileSync(path).toString());
+  static readFromFile(path: string) {
+    return JSON.parse(fs.readFileSync(path).toString());
   }
 
   get fileName() {

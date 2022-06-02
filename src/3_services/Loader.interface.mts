@@ -1,4 +1,5 @@
-import { InterfaceDescriptor } from "../2_systems/Things/DefaultClassDescriptor.class.mjs";
+import InterfaceDescriptor from "../2_systems/Things/InterfaceDescriptor.class.mjs";
+
 import Class from "./Class.interface.mjs";
 import IOR from "./IOR.interface.mjs";
 import { ThingStatics } from "./Thing.interface.mjs";

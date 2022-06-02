@@ -1,4 +1,4 @@
-import ClassDescriptor from "../2_systems/Things/DefaultClassDescriptor.class.mjs";
+import ClassDescriptor from "../2_systems/Things/ClassDescriptor.class.mjs";
 import DefaultIOR from "../2_systems/Things/DefaultIOR.class.mjs";
 import { UcpModelProxySchema } from "../2_systems/Things/DefaultUcpModel.class.mjs";
 import { DefaultPersistanceManagerHandler } from "../2_systems/Things/PersistanceManagerHandler.class.mjs";

@@ -1,12 +1,42 @@
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 
 import fs from 'fs';
 import path from 'path';
 import { NpmPackage } from "./NpmPackage.class.mjs";
 
+export class TSConfig {
+
+  compilerOptions: any;
+
+  init(path: string) {
+    let tsConfig = JSON.parse(readFileSync(path).toString());
+    for (const key of Object.keys(tsConfig)) {
+      if (key in this) {
+        //@ts-ignore
+        this[key] = tsConfig[key];
+      }
+    }
+    return this;
+  }
+
+}
+
 
 export class ServerSideNpmPackage extends NpmPackage {
+  private _tsConfig?: TSConfig;
+
+  get basePath(): string {
+    if (this.path === undefined) throw new Error("Missing path");
+    return path.dirname(this.path)
+  }
+
+  get tsConfig(): TSConfig {
+    if (this._tsConfig === undefined) {
+      this._tsConfig = new TSConfig().init(this.basePath);
+    }
+    return this._tsConfig;
+  }
 
   static getByFolder(path: string): ServerSideNpmPackage | undefined {
     return this.getByPath(join(path, "package.json"));
@@ -14,9 +44,8 @@ export class ServerSideNpmPackage extends NpmPackage {
 
   static getByPath(path: string): ServerSideNpmPackage | undefined {
     if (!existsSync(path)) return undefined;
-    const npmPackage: ServerSideNpmPackage = JSON.parse(readFileSync(path).toString());
-    npmPackage.path = path;
-    return npmPackage;
+
+    return new ServerSideNpmPackage().init(JSON.parse(readFileSync(path).toString()), path);
   }
 
   static getByPackage(path: string, name: string, version: string): NpmPackage {
@@ -35,6 +64,17 @@ export class ServerSideNpmPackage extends NpmPackage {
   get localBaseDir(): string {
     // HACK Change with real Components
     return process.cwd() + '/src';
+  }
+
+  init(packageJsonData: any, filePath: string): this {
+    for (const key of Object.keys(packageJsonData)) {
+      if (key in this) {
+        //@ts-ignore
+        this[key] = packageJsonData[key];
+      }
+    }
+    this.path = filePath;
+    return this;
   }
 
 

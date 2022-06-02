@@ -1,5 +1,6 @@
 import { getCommentRange } from "typescript";
-import { InterfaceDescriptor } from "../2_systems/Things/DefaultClassDescriptor.class.mjs";
+import InterfaceDescriptor from "../2_systems/Things/InterfaceDescriptor.class.mjs";
+
 import { JSONProvider } from "./JSON.interface.mjs";
 
 export enum urlProtocol {

@@ -136,7 +136,7 @@ export default class DefaultSubmodule implements Submodule {
       this.copy(this.fullPath, this.version, "bin");
       new ServerSideUcpComponentDescriptor()
         .init({ path: this.fullPath, relativePath: this.devPath })
-        .writeToPath(this.fullPath, this.version);
+      //.writeToPath(this.fullPath, this.version);
 
       const dist = join(
         this.fullPath,

@@ -10,7 +10,7 @@ import WeakRefPromiseStore from "./WeakRefPromiseStore.class.mjs";
 import ExtendedPromise from "../JSExtensions/Promise.class.mjs";
 import { UDEObject } from "../../3_services/PersistanceManager.interface.mjs";
 import DefaultParticle from "./DefaultParticle.class.mjs";
-import ClassDescriptor from "./DefaultClassDescriptor.class.mjs";
+import ClassDescriptor from "./ClassDescriptor.class.mjs";
 
 @ClassDescriptor.componentExport('namedExport')
 export default class UDELoader extends BaseLoader {

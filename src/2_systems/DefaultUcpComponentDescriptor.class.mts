@@ -1,8 +1,10 @@
+import ClassDescriptorInterface from "../3_services/ClassDescriptor.interface.mjs";
+import InterfaceDescriptorInterface from "../3_services/InterfaceDescriptor.interface.mjs";
 import { ThingStatics } from "../3_services/Thing.interface.mjs";
+import UcpComponentDescriptorInterface from "../3_services/UcpComponentDescriptor.interface.mjs";
 import { NpmPackage } from "./NpmPackage.class.mjs";
-import { ClassDescriptorInterface, InterfaceDescriptorInterface } from "./Things/DefaultClassDescriptor.class.mjs";
 
-export default class DefaultUcpComponentDescriptor {
+export default class DefaultUcpComponentDescriptor implements UcpComponentDescriptorInterface {
 
   exportFile: string = "index.ts";
 
@@ -16,9 +18,7 @@ export default class DefaultUcpComponentDescriptor {
   }
 
   npmPackage!: NpmPackage;
-
   relativeSrcPath: string | undefined;
-
   identifier: string | undefined;
 
   protected myClass = DefaultUcpComponentDescriptor;
@@ -39,6 +39,11 @@ export default class DefaultUcpComponentDescriptor {
     return this.npmPackage.path;
   }
 
+  get package(): string {
+    if (!this.npmPackage.package) throw new Error("NPM version is missing");
+    return this.npmPackage.package;
+
+  }
 
   getUnitByName(name: string, type: 'ClassDescriptor'): ClassDescriptorInterface | undefined;
   getUnitByName(name: string, type: 'InterfaceDescriptor'): InterfaceDescriptorInterface | undefined;
@@ -96,7 +101,7 @@ export default class DefaultUcpComponentDescriptor {
 
 
 
-  register(object: ThingStatics<any> | InterfaceDescriptorInterface) {
+  register(object: ThingStatics<any> | InterfaceDescriptorInterface): void {
 
     if ("classDescriptor" in object) {
       this.units.push(object);
@@ -123,14 +128,14 @@ export default class DefaultUcpComponentDescriptor {
     }
   }
 
-  static getDescriptor(packagePath: string, packageName: string, packageVersion: string | undefined): DefaultUcpComponentDescriptor {
+  static getDescriptor(packagePath: string, packageName: string, packageVersion: string | undefined): UcpComponentDescriptorInterface {
     let name = this.getDescriptorName(packagePath, packageName, packageVersion);
     if (this._componentDescriptorStore[name]) return this._componentDescriptorStore[name];
 
     return new this().initBasics(packagePath, packageName, packageVersion)
   }
 
-  initBasics(packagePath: string, packageName: string, packageVersion: string | undefined): DefaultUcpComponentDescriptor {
+  initBasics(packagePath: string, packageName: string, packageVersion: string | undefined): UcpComponentDescriptorInterface {
 
     this.npmPackage = NpmPackage.getByPackage(packagePath, packageName, packageVersion || '');
     let name = this.myClass.getDescriptorName(packagePath, packageName, packageVersion);

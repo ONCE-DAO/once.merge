@@ -1,6 +1,6 @@
-import { UcpComponentDescriptorInterface } from "../3_services/UcpComponentDescriptor.interface.mjs";
+import UcpComponentDescriptorInterface, { UcpComponentDescriptorStatics } from "../3_services/UcpComponentDescriptor.interface.mjs";
 
-let ActiveUcpComponentDescriptor: any;
+let ActiveUcpComponentDescriptor: UcpComponentDescriptorStatics;
 
 if (typeof window === "undefined") {
   let moduleItem = await import("./ServerSideUcpComponentDescriptor.class.mjs")

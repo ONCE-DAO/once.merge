@@ -1,6 +1,6 @@
 import Thing, { ThingObjectState } from "../3_services/Thing.interface.mjs";
 import EventService from "../3_services/EventService.interface.mjs";
-import ClassDescriptor from "../2_systems/Things/DefaultClassDescriptor.class.mjs";
+import ClassDescriptor from "../2_systems/Things/ClassDescriptor.class.mjs";
 
 import { Metaclass, TSClass } from '../3_services/TypeDescriptor.interface.mjs';
 

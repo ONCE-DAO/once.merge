@@ -4,7 +4,7 @@ import DefaultThing from "./BaseThing.class.mjs";
 
 import { OnceConfig } from "../2_systems/Once/ONCEConfig.class.mjs";
 import DefaultIOR from "../2_systems/Things/DefaultIOR.class.mjs";
-import ClassDescriptor from "../2_systems/Things/DefaultClassDescriptor.class.mjs";
+import ClassDescriptor from "../2_systems/Things/ClassDescriptor.class.mjs";
 import IOR from "../3_services/IOR.interface.mjs";
 
 @ClassDescriptor.componentExport('namedExport')

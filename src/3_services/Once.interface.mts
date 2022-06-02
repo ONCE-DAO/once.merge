@@ -1,7 +1,8 @@
 import Thing from "./Thing.interface.mjs";
 import EAMD from "./EAMD.interface.mjs";
 import { OnceConfig } from "../2_systems/Once/ONCEConfig.class.mjs";
-import { InterfaceDescriptor } from "../2_systems/Things/DefaultClassDescriptor.class.mjs";
+import InterfaceDescriptor from "../2_systems/Things/InterfaceDescriptor.class.mjs";
+
 import IOR from "./IOR.interface.mjs";
 
 export default interface Once extends Thing<Once> {

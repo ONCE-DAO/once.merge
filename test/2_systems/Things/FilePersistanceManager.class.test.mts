@@ -2,7 +2,6 @@ import { BasePersistanceManager } from "../../../src/1_infrastructure/BasePersis
 import SomeExampleUcpComponent from "../../../src/2_systems/Things/SomeExampleUcpComponent.class.mjs";
 
 import OnceNodeServer from "../../../src/2_systems/Once/OnceNodeServer.class.mjs";
-import { InterfaceDescriptor } from "../../../src/2_systems/Things/DefaultClassDescriptor.class.mjs";
 
 import fs from 'fs';
 import DefaultIOR from "../../../src/2_systems/Things/DefaultIOR.class.mjs";

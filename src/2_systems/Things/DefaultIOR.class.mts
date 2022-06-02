@@ -3,7 +3,7 @@ import Loader, { loadingConfig } from "../../3_services/Loader.interface.mjs";
 import IOR from "../../3_services/IOR.interface.mjs";
 import { urlProtocol } from "../../3_services/Url.interface.mjs";
 import UUiD from "../JSExtensions/UUiD.class.mjs";
-import ClassDescriptor from "./DefaultClassDescriptor.class.mjs";
+import ClassDescriptor from "./ClassDescriptor.class.mjs";
 
 
 

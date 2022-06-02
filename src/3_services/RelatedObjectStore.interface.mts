@@ -1,7 +1,8 @@
-import ClassDescriptor, { InterfaceDescriptorInterface } from "../2_systems/Things/DefaultClassDescriptor.class.mjs";
+import ClassDescriptorInterface from "./ClassDescriptor.interface.mjs";
+import InterfaceDescriptorInterface from "./InterfaceDescriptor.interface.mjs";
 import Store from "./Store.interface.mjs";
 
-export type RelatedObjectStoreStoredObject = { classDescriptor: ClassDescriptor };
+export type RelatedObjectStoreStoredObject = { classDescriptor: ClassDescriptorInterface };
 
 
 export default interface RelatedObjectStore extends Store {
