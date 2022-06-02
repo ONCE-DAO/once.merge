@@ -21,6 +21,9 @@ describe("EAMD Loader", () => {
     expect(loadedDefaultIOR.classDescriptor.name).toEqual(
       DefaultIOR.classDescriptor.name
     );
+    expect(loadedDefaultIOR).toEqual(
+      DefaultIOR
+    );
   });
 
   test("NODE_ENV", () => {

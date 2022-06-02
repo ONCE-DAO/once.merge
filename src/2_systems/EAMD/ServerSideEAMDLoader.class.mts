@@ -1,20 +1,21 @@
 import IOR from "../../3_services/IOR.interface.mjs";
-import Loader, { loaderReturnValue, LoaderStatic, loadingConfig } from "../../3_services/Loader.interface.mjs";
+import Loader, {
+  loaderReturnValue,
+  LoaderStatic,
+  loadingConfig,
+} from "../../3_services/Loader.interface.mjs";
 import { urlProtocol } from "../../3_services/Url.interface.mjs";
 import BaseLoader from "../../1_infrastructure/BaseLoader.class.mjs";
 import UcpComponentInterface from "../../3_services/UcpComponent.interface.mjs";
 import path from "path";
 
-
 class EAMDLoader extends BaseLoader implements Loader {
-
   removeObjectFromStore(object: any): void {
     throw new Error("Method not implemented.");
   }
   addObject2Store(ior: IOR, object: any): void {
     throw new Error("Method not implemented.");
   }
-
 
   // get class(): typeof EAMDLoader {
   //   return EAMDLoader;
@@ -23,36 +24,53 @@ class EAMDLoader extends BaseLoader implements Loader {
   async load(ior: IOR, config: loadingConfig): Promise<any> {
     // Shortcut for once itself
 
-    if (this.canHandle(ior) !== 1 || !ior.namespace) throw new Error("Can not load this IOR");
+    if (this.canHandle(ior) !== 1 || !ior.namespace)
+      throw new Error("Can not load this IOR");
 
     let modulePath: string;
 
-
     // HACK: Need to discover That!
-    if (ior.namespace === 'tla.EAM.Once') {
-      modulePath = path.resolve("./Components/tla/EAM/Once/dist/once.merge/main");
-    } else if (ior.namespace === 'tla.EAM.once.ts') {
-      modulePath = path.resolve("./Components/tla/EAM/Once/dist/once.merge/main");
-    } else if (ior.namespace === 'tla.EAM.Once.once.merge') {
-      modulePath = path.resolve("./Components/tla/EAM/Once/dist/once.merge/main");
+    if (ior.namespace === "tla.EAM.Once") {
+      modulePath =
+        process.env.NODE_ENV === "test"
+          ? path.resolve("./Components/tla/EAM/Once/dev/once.merge@main/src")
+          : path.resolve("./Components/tla/EAM/Once/dist/once.merge/main");
+    } else if (ior.namespace === "tla.EAM.once.ts") {
+      modulePath =
+        process.env.NODE_ENV === "test"
+          ? path.resolve("./Components/tla/EAM/Once/dev/once.merge@main/src")
+          : path.resolve("./Components/tla/EAM/Once/dist/once.merge/main");
+    } else if (ior.namespace === "tla.EAM.Once.once.merge") {
+      modulePath =
+        process.env.NODE_ENV === "test"
+          ? path.resolve("./Components/tla/EAM/Once/dev/once.merge@main/src")
+          : path.resolve("./Components/tla/EAM/Once/dist/once.merge/main");
     } else {
-
       if (typeof ONCE === "undefined") throw new Error("Missing ONCE");
       if (ONCE.eamd == undefined) throw new Error("Missing EAMD in ONCE");
 
-      let eamdRepos = await global.ONCE?.eamd?.discover() as Object;
+      let eamdRepos = (await global.ONCE?.eamd?.discover()) as Object;
 
       //@ts-ignore
       const repoPath = eamdRepos[ior.namespace];
       if (repoPath === undefined) {
-        throw new Error("Missing Mapping from Namespace to Repository: " + ior.namespace)
+        throw new Error(
+          "Missing Mapping from Namespace to Repository: " + ior.namespace
+        );
       }
 
       if (!ONCE.eamd.eamdRepository) throw new Error("Missing eamdRepository");
 
-      let submodules = await ONCE.eamd.eamdRepository.getAndInstallSubmodule(ior, repoPath);
+      let submodules = await ONCE.eamd.eamdRepository.getAndInstallSubmodule(
+        ior,
+        repoPath
+      );
 
-      modulePath = ONCE.eamd.eamdDirectory + '/' + submodules.devPath + "/../../dist/current/src/";
+      modulePath =
+        ONCE.eamd.eamdDirectory +
+        "/" +
+        submodules.devPath +
+        "/../../dist/current/src/";
     }
     if (config?.returnValue === loaderReturnValue.path) {
       return modulePath;
@@ -61,7 +79,10 @@ class EAMDLoader extends BaseLoader implements Loader {
 
       // HACK should be removed after Components exists
       if (ior.namespaceObject !== undefined) {
-        if (!result[ior.namespaceObject]) throw new Error(`Missing Object '${ior.namespaceObject}' in the export from file: '${modulePath}'`)
+        if (!result[ior.namespaceObject])
+          throw new Error(
+            `Missing Object '${ior.namespaceObject}' in the export from file: '${modulePath}'`
+          );
         return result[ior.namespaceObject];
       } else {
         return result;
@@ -73,14 +94,12 @@ class EAMDLoader extends BaseLoader implements Loader {
     return EAMDLoader.canHandle(ior);
   }
 
-
   static canHandle(ior: IOR): number {
     if (ior.protocol.includes(urlProtocol.esm) && ior.namespace !== undefined) {
       return 1;
     }
     return 0;
   }
-
 }
 
-export default (EAMDLoader as LoaderStatic);
+export default EAMDLoader as LoaderStatic;
