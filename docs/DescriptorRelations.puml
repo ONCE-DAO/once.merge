@@ -1,0 +1,21 @@
+@startuml
+class UcpComponentDescriptor {}
+class InterfaceDescriptor{}
+class ClassDescriptor{}
+class ServerSideUcpComponentDescriptor
+class DefaultUcpComponentDescriptor
+
+InterfaceDescriptor --|> UcpComponentDescriptor
+UcpComponentDescriptor --|> ServerSideUcpComponentDescriptor
+
+ServerSideUcpComponentDescriptor --|> DefaultUcpComponentDescriptor
+
+ServerSideUcpComponentDescriptor --|> ServerSideNpmPackage
+
+ServerSideNpmPackage --|>  NpmPackage
+
+ClassDescriptor --|> InterfaceDescriptor
+
+ClassDescriptor --|> UcpComponentDescriptor
+
+@enduml
