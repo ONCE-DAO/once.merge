@@ -37,9 +37,15 @@ export default class ServerSideUcpComponentDescriptor extends DefaultUcpComponen
   }
 
   writeToDistPath() {
-    const outDir = this.npmPackage.tsConfig?.compilerOptions?.outDir;
-    if (!outDir) throw new Error("Missing outDir in tsconfig.json");
-    this.writeToPath(outDir);
+    try {
+      const outDir = this.npmPackage.tsConfig?.compilerOptions?.outDir;
+      if (!outDir) throw new Error("Missing outDir in tsconfig.json");
+      const filePath = path.join(this.npmPackage.basePath, outDir);
+      this.writeToPath(filePath);
+    } catch (err) {
+      console.error("Filed to write ComponentDescriptor for component " + this.name);
+      throw err;
+    }
   }
 
   get descriptorFileName() { return 'ComponentDescriptor.json' }
@@ -52,7 +58,9 @@ export default class ServerSideUcpComponentDescriptor extends DefaultUcpComponen
       package: this.package
     }
 
-    fs.writeFileSync(path.join(writePath, this.descriptorFileName), JSON.stringify(outputData));
+    let filePath = path.join(writePath, this.descriptorFileName)
+    let dataString = JSON.stringify(outputData, null, 2)
+    fs.writeFileSync(filePath, dataString);
     // const descriptor = create();
     // descriptor.ele("", "foo").txt("vbhjk").up();
     // // Object.keys(this).forEach((key, i) => {

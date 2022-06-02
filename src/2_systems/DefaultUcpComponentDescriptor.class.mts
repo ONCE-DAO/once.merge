@@ -25,22 +25,22 @@ export default class DefaultUcpComponentDescriptor implements UcpComponentDescri
 
 
   get name(): string {
-    if (!this.npmPackage.name) throw new Error("NPM Name is missing");
+    if (!this.npmPackage.name) throw new Error("NPM Name is missing for " + this.name);
     return this.npmPackage.name;
   }
 
   get version(): string {
-    if (!this.npmPackage.version) throw new Error("NPM version is missing");
+    if (!this.npmPackage.version) throw new Error("NPM version is missing for " + this.name);
     return this.npmPackage.version;
   }
 
   get srcPath(): string {
-    if (!this.npmPackage.path) throw new Error("NPM version is missing");
+    if (!this.npmPackage.path) throw new Error("NPM path is missing for " + this.name);
     return this.npmPackage.path;
   }
 
   get package(): string {
-    if (!this.npmPackage.package) throw new Error("NPM version is missing");
+    if (!this.npmPackage.package) throw new Error("NPM package is missing for " + this.name);
     return this.npmPackage.package;
 
   }

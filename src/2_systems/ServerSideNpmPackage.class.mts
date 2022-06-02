@@ -10,7 +10,21 @@ export class TSConfig {
   compilerOptions: any;
 
   init(path: string) {
-    let tsConfig = JSON.parse(readFileSync(path).toString());
+    const filePath = join(path, 'tsconfig.json');
+    if (!fs.existsSync(filePath)) throw new Error("File dos not exist: " + filePath);
+
+    let rawData = readFileSync(filePath).toString();
+
+    rawData = rawData.replace(/\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g, (m, g) => g ? "" : m);
+    let tsConfig
+    try {
+      tsConfig = JSON.parse(rawData);
+    } catch (e) {
+      if (e instanceof Error) {
+        e.message = "Failed to parse TS config: " + filePath + "\n" + rawData + "\n" + e.message;
+      }
+      throw e;
+    }
     for (const key of Object.keys(tsConfig)) {
       if (key in this) {
         //@ts-ignore
