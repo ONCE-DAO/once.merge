@@ -2,7 +2,6 @@ import ServerSideEAMDLoader from "../../../src/2_systems/EAMD/ServerSideEAMDLoad
 import DefaultIOR from "../../../src/2_systems/Things/DefaultIOR.class.mjs";
 import OnceNodeServer from "../../../src/2_systems/Once/OnceNodeServer.class.mjs";
 
-
 beforeEach(async () => {
   if (ONCE_STARTED === false) await OnceNodeServer.start();
 });
@@ -12,14 +11,20 @@ describe("EAMD Loader", () => {
     // @ts-ignore
     let ior = new DefaultIOR().init("ior:esm:git:tla.EAM.Once");
     expect(ior.loader).toBe(undefined);
-    let loader = (await ior.discoverLoader())
+    let loader = await ior.discoverLoader();
     expect(loader).toBeInstanceOf(ServerSideEAMDLoader);
   });
 
   test(`IOR load Thing from Namespace`, async () => {
     let loadedDefaultIOR = (await DefaultIOR.load("ior:esm:git:tla.EAM.Once"))
       .DefaultIOR;
-    expect(loadedDefaultIOR.classDescriptor.name).toEqual(DefaultIOR.classDescriptor.name);
+    expect(loadedDefaultIOR.classDescriptor.name).toEqual(
+      DefaultIOR.classDescriptor.name
+    );
+  });
+
+  test("NODE_ENV", () => {
+    expect(process.env.NODE_ENV).toBe("test");
   });
 
   test(`CanHandler`, async () => {

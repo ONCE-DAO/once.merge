@@ -3,7 +3,7 @@ import DefaultIOR from "../2_systems/Things/DefaultIOR.class.mjs";
 import { UcpModelProxySchema } from "../2_systems/Things/DefaultUcpModel.class.mjs";
 import { DefaultPersistanceManagerHandler } from "../2_systems/Things/PersistanceManagerHandler.class.mjs";
 import RelatedObjectStore from "../2_systems/Things/RelatedObjectStore.class.mjs";
-import { z } from "../2_systems/Zod";
+import { z } from "zod";
 import IOR from "../3_services/IOR.interface.mjs";
 import { JSONProvider } from "../3_services/JSON.interface.mjs";
 import { OnceMode } from "../3_services/Once.interface.mjs";

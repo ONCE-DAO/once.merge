@@ -5,7 +5,7 @@ import UcpComponent from "../../3_services/UcpComponent.interface.mjs";
 import UcpModel, { UcpModelChangelog as UcpModelChangelog, UcpModelChangeLogMethods, UcpModelEvents, UcpModelTransactionStates } from "../../3_services/UcpModel.interface.mjs";
 import Wave from "../../3_services/Wave.interface.mjs";
 import ExtendedPromise from "../JSExtensions/Promise.class.mjs";
-import { z } from "../Zod";
+import { z } from "zod";
 import DefaultEventService from "./DefaultEventService.class.mjs";
 import DefaultIOR from "./DefaultIOR.class.mjs";
 import DefaultParticle from "./DefaultParticle.class.mjs";

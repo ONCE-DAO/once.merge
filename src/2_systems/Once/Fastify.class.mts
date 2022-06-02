@@ -12,7 +12,7 @@ import path from 'path';
 import middie from 'middie';
 
 import serveStatic from 'serve-static';
-import { z } from "../Zod";
+import { z } from "zod";
 import DefaultIOR from "../Things/DefaultIOR.class.mjs";
 import { loaderReturnValue } from "../../3_services/Loader.interface.mjs";
 import { urlProtocol } from "../../3_services/Url.interface.mjs";
