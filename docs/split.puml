@@ -1,0 +1,138 @@
+@startuml
+component tla.EAM.ONCE {
+	class 1_infrastructure/BaseNodeOnce
+	class 1_infrastructure/BaseThing
+	class 1_infrastructure/OnceKernel
+	class 1_infrastructure/BaseLoader
+	class 1_infrastructure/BaseEAMD
+	class 1_infrastructure/BaseOnce
+	class 2_systems/EAMD/ServerSideEAMDLoader
+	class 2_systems/EAMD/BrowserEAMDLoader
+	class 2_systems/Once
+	class 2_systems/Once/ONCEConfig
+	class 2_systems/Once/OnceBrowser
+	class 2_systems/Once/OnceNodeServer
+	class 2_systems/Once/OnceNodeImportLoader
+	class 2_systems/Things/DefaultClient
+	class 2_systems/Things/DefaultLoader
+	class 2_systems/Things/DefaultIOR
+	class 2_systems/Things/WeakRefStore
+	class 2_systems/Things/RelatedObjectStore
+	class 2_systems/Things/WeakRefPromiseStore
+	class 2_systems/Things/DefaultUrl
+	class 2_systems/TsConfig
+
+	interface 3_services/RestClient
+	interface 3_services/Once
+	interface 3_services/JSON
+	interface 3_services/Loader
+	interface 3_services/EAMD
+	interface 3_services/RelatedObjectStore
+	interface 3_services/GitRepository
+	interface 3_services/TypeDescriptor {
+		only Test
+	}
+	interface 3_services/IOR
+	interface 3_services/Queue
+	interface 3_services/Url
+
+	interface 3_services/Thing
+	interface 3_services/Class
+	interface 3_services/Client
+	interface 3_services/Server
+}
+
+component tla.EAM.JSExtensions {
+
+	class 2_systems/JSExtensions/Promise
+	class 2_systems/JSExtensions/UUiD
+}
+
+component tla.EAM.Descriptors {
+	class 2_systems/InterfaceDescriptor
+	class 2_systems/ClassDescriptor
+	interface 3_services/InterfaceDescriptor
+	interface 3_services/ClassDescriptor
+
+	class 2_systems/ServerSideUcpComponentDescriptor
+	interface 3_services/UcpComponentDescriptor
+	class 2_systems/BaseUcpComponentDescriptor
+	class 2_systems/DefaultUcpComponentDescriptor
+}
+
+component tla.EAM.Store {
+	class 2_systems/Things/DefaultStore
+	interface 3_services/Store
+}
+
+component DefaultFunctionPromiseQueue {
+		class 2_systems/DefaultFunctionPromiseQueue
+}
+
+
+component tla.EAM.EventService {
+	class 2_systems/Things/DefaultEvent
+	class 2_systems/Things/DefaultEventService
+	interface 3_services/EventService
+
+}
+
+component tla.EAM.OnceWebserver {
+		class 2_systems/Fastify
+}
+
+component tla.EAM.CRUDClient {
+	class 2_systems/CRUDClient
+	interface 3_services/CRUDClient
+}
+
+component tla.EAM.OnceBuilder {
+	class 2_systems/Git/GitRepository
+	class 2_systems/Git/Submodule
+
+	class 2_systems/EAMD/RootEAMD
+	class 2_systems/EAMD/UserEAMD
+	class 2_systems/ServerSideNpmPackage
+	class 2_systems/NpmPackage
+	interface 3_services/Submodule
+
+}
+
+component tla.EAM.PersistanceManager {
+	class 1_infrastructure/BasePersistanceManager
+	class 2_systems/PersistanceManagerHandler
+	interface 3_services/PersistanceManager
+	interface 3_services/PersistanceManagerHandler
+}
+
+component tla.EAM.BrowserUDEPersistanceManager {
+	class 2_systems/BrowserUDEPersistanceManager
+}
+
+
+component tla.EAM.FilePersistanceManager {
+	class 2_systems/FilePersistanceManager
+}
+
+component tla.EAM.UDELoader {
+	class 2_systems/Things/UDELoader
+}
+
+
+component tla.EAM.UcpComponent {
+
+	class 1_infrastructure/BaseUcpComponent
+	class 2_systems/Things/SomeExampleUcpComponent
+	interface 3_services/UcpComponent
+}
+component tla.EAM.UcpModel {
+	class 2_systems/Things/DefaultParticle
+	interface 3_services/Particle
+	interface 3_services/UcpModel
+	class 2_systems/Things/DefaultUcpModel
+	class 2_systems/Things/DefaultWave
+	interface 3_services/Wave
+
+}
+
+@enduml
