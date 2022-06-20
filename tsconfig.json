@@ -16,6 +16,7 @@
   "exclude": [
     "test",
     "**/test/**/*",
-    "node_modules"
+    "node_modules",
+    "../../../../../../Scenarios/localhost/tla/EAM/Once/merge/main/"
   ]
 }
