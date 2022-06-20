@@ -1,13 +1,13 @@
 {
-  "extends": "./../../../../../../tsconfig",
+  "extends": "../../../../../tsconfig",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "../../dist/once.merge/main",
-    "plugins": [
-      {
-        "transform": "./../../../Thinglish/dist/thinglish.transformer/merge/3_services/transformer.cjs"
-      }
-    ]
+    "outDir": "../../../../../Scenarios/localhost/tla/EAM/once.merge/main/"
+    // "plugins": [
+    //   {
+    //     "transform": "./../../../Thinglish/dist/thinglish.transformer/merge/3_services/transformer.cjs"
+    //   }
+    // ]
   },
   "include": [
     "./src/**/*"

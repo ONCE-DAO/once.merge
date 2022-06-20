@@ -1,6 +1,6 @@
 {
   "name": "once.merge",
-  "package": "tla.EAM.Once",
+  "namespace": "tla.EAM",
   "onceDependencies": [
     "thinglish.transformer"
   ],
