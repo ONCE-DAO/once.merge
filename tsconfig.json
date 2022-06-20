@@ -2,7 +2,7 @@
   "extends": "../../../../../../tsconfig",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "../../../../../../Scenarios/localhost/tla/EAM/once/merge/main/dist/"
+    "outDir": "../../../../../../Scenarios/localhost/tla/EAM/Once/merge/main/dist/"
     // "plugins": [
     //   {
     //     "transform": "./../../../Thinglish/dist/thinglish.transformer/merge/3_services/transformer.cjs"

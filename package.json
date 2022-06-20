@@ -2,7 +2,7 @@
   "name": "merge",
   "namespace": "tla.EAM.Once",
   "onceDependencies": [
-    "thinglish.transformer"
+    "transformer"
   ],
   "version": "1.0.0",
   "description": "",
