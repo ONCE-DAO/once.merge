@@ -1,8 +1,8 @@
 {
-  "name": "merge",
+  "name": "Merge",
   "namespace": "tla.EAM.Once",
   "onceDependencies": [
-    "transformer"
+    "Transformer"
   ],
   "version": "1.0.0",
   "description": "",
