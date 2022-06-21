@@ -1,5 +1,5 @@
 import { W_OK } from "constants";
-import { accessSync, existsSync, mkdirSync, rmSync, symlinkSync } from "fs";
+import { accessSync, existsSync, mkdirSync, readFileSync, rmSync, symlinkSync } from "fs";
 import { join, relative } from "path";
 import EAMD, { EAMD_FOLDERS } from "../3_services/EAMD.interface.mjs";
 import GitRepositoryInterface from "../3_services/GitRepository.interface.mjs";
@@ -144,11 +144,21 @@ export abstract class BaseEAMD implements EAMD {
     }
   }
 
-  async discover(): Promise<object> {
-    return {
-      "tla.EAM.Once.ts": "https://github.com/ONCE-DAO/once.ts",
-      "tla.EAM.Once.cli": "https://github.com/ONCE-DAO/once.cli",
-      "tla.EAM.MarcelDonges": "https://github.com/temp-phibar/MarcelDonges",
-    };
+  async discover(): Promise<{ [i: string]: string }> {
+
+    const configFile = "tsconfigPaths.json"
+    if (!existsSync(configFile)) throw new Error("missing " + configFile)
+    let paths = JSON.parse(readFileSync(configFile).toString()).compilerOptions.paths as { [i: string]: string[] };
+
+    let result: { [i: string]: string } = {};
+    for (const key of Object.keys(paths)) {
+      const path = paths[key].filter(x => x.endsWith(".mjs"))
+      if (path.length > 0) {
+        result[key] = path[0];
+      }
+    }
+    return result
+
+
   }
 }

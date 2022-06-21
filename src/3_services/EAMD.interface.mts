@@ -14,7 +14,7 @@ export default interface EAMD {
   init(path: string): EAMD;
   update(): Promise<EAMD>;
   test(): void;
-  discover(): Promise<Object>;
+  discover(): Promise<{ [i: string]: string }>;
   getInstallDirectory(): string | undefined;
 }
 

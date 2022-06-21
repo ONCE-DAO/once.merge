@@ -6,7 +6,6 @@ import Loader, {
 } from "../../3_services/Loader.interface.mjs";
 import { urlProtocol } from "../../3_services/Url.interface.mjs";
 import BaseLoader from "../../1_infrastructure/BaseLoader.class.mjs";
-import UcpComponentInterface from "../../3_services/UcpComponent.interface.mjs";
 import path from "path";
 
 class EAMDLoader extends BaseLoader implements Loader {
@@ -17,9 +16,6 @@ class EAMDLoader extends BaseLoader implements Loader {
     throw new Error("Method not implemented.");
   }
 
-  // get class(): typeof EAMDLoader {
-  //   return EAMDLoader;
-  // }
 
   async load(ior: IOR, config: loadingConfig): Promise<any> {
     // Shortcut for once itself
@@ -27,51 +23,30 @@ class EAMDLoader extends BaseLoader implements Loader {
     if (this.canHandle(ior) !== 1 || !ior.namespace)
       throw new Error("Can not load this IOR");
 
-    let modulePath: string;
 
-    // HACK: Need to discover That!
-    if (ior.namespace === "tla.EAM.Once") {
-      modulePath =
-        process.env.NODE_ENV === "test"
-          ? path.resolve("./Components/tla/EAM/Once/dev/once.merge@main/src")
-          : path.resolve("./Components/tla/EAM/Once/dist/once.merge/main");
-    } else if (ior.namespace === "tla.EAM.once.ts") {
-      modulePath =
-        process.env.NODE_ENV === "test"
-          ? path.resolve("./Components/tla/EAM/Once/dev/once.merge@main/src")
-          : path.resolve("./Components/tla/EAM/Once/dist/once.merge/main");
-    } else if (ior.namespace === "tla.EAM.Once.once.merge") {
-      modulePath =
-        process.env.NODE_ENV === "test"
-          ? path.resolve("./Components/tla/EAM/Once/dev/once.merge@main/src")
-          : path.resolve("./Components/tla/EAM/Once/dist/once.merge/main");
-    } else {
-      if (typeof ONCE === "undefined") throw new Error("Missing ONCE");
-      if (ONCE.eamd == undefined) throw new Error("Missing EAMD in ONCE");
+    if (typeof ONCE === "undefined") throw new Error("Missing ONCE");
+    if (ONCE.eamd == undefined) throw new Error("Missing EAMD in ONCE");
 
-      let eamdRepos = (await global.ONCE?.eamd?.discover()) as Object;
+    let eamdRepos = (await global.ONCE?.eamd?.discover());
 
-      //@ts-ignore
-      const repoPath = eamdRepos[ior.namespace];
-      if (repoPath === undefined) {
-        throw new Error(
-          "Missing Mapping from Namespace to Repository: " + ior.namespace
-        );
-      }
-
-      if (!ONCE.eamd.eamdRepository) throw new Error("Missing eamdRepository");
-
-      let submodules = await ONCE.eamd.eamdRepository.getAndInstallSubmodule(
-        ior,
-        repoPath
+    const repoPath = eamdRepos?.[ior.href];
+    if (repoPath === undefined) {
+      throw new Error(
+        "Missing Mapping from Namespace to Repository: " + ior.href
       );
-
-      modulePath =
-        ONCE.eamd.eamdDirectory +
-        "/" +
-        submodules.devPath +
-        "/../../dist/current/src/";
     }
+    // Build ist deaktiviert
+
+    // if (!ONCE.eamd.eamdRepository) throw new Error("Missing eamdRepository");
+    // let submodules = await ONCE.eamd.eamdRepository.getAndInstallSubmodule(
+    //   ior,
+    //   repoPath
+    // );
+
+    if (!ONCE.eamd.eamdDirectory) throw new Error("missing EAMD Directory")
+
+    const modulePath = path.join(ONCE.eamd.eamdDirectory, repoPath);
+
     if (config?.returnValue === loaderReturnValue.path) {
       return modulePath;
     } else {

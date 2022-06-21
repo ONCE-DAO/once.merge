@@ -15,7 +15,7 @@ export default class OnceNodeServer extends BaseNodeOnce implements Once {
   eamd: EAMD;
   creationDate: Date;
 
-  private constructor(eamd: EAMD) {
+  constructor(eamd: EAMD) {
     super();
     this.creationDate = new Date();
     this.eamd = eamd;
