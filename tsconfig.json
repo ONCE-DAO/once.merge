@@ -17,6 +17,7 @@
     "test",
     "**/test/**/*",
     "node_modules",
-    "../../../../../../Scenarios/localhost/tla/EAM/Once/merge/main/"
+    "../../../../../../Scenarios/localhost/tla/EAM/Once/merge/main/",
+    "**/dist/**/*"
   ]
 }
