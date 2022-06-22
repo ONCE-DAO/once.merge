@@ -35,7 +35,7 @@ describe("Url Class", () => {
   })
 
 
-  var validate = [];
+  var validate: any[] = [];
   validate.push({
     url: "ior:ude:rest:http://localhost:8080/ior/131cac9f-ceb3-401f-a866-73f7a691fed7",
     result: {

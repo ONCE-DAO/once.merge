@@ -13,7 +13,7 @@ describe("IOR Class", () => {
 
 
 
-  let validate = [];
+  let validate: any[] = [];
 
   validate.push({
     url: "https://shifter.staging.shiftphones.com:30484/",
